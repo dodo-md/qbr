@@ -71,6 +71,13 @@ class CubeState():
             self.cp[7],
         )
 
+        self.co[0], self.co[3], self.co[7], self.co[4] = (
+            (self.co[4] + 2) % 3,
+            (self.co[0] + 1) % 3,
+            (self.co[3] + 2) % 3,
+            (self.co[7] + 1) % 3,
+        )
+
         self.ep[0], self.ep[7], self.ep[8], self.ep[4] = (
             self.ep[4],
             self.ep[0],
@@ -84,6 +91,13 @@ class CubeState():
             self.cp[1],
             self.cp[5],
             self.cp[6],
+        )
+
+        self.co[1], self.co[5], self.co[6], self.co[2] = (
+            (self.co[2] + 1) % 3,
+            (self.co[1] + 2) % 3,
+            (self.co[5] + 1) % 3,
+            (self.co[6] + 2) % 3, 
         )
 
         self.ep[2], self.ep[5], self.ep[10], self.ep[6] = (
@@ -101,6 +115,13 @@ class CubeState():
             self.cp[5],
         )
 
+        self.co[0], self.co[4], self.co[5], self.co[1] = (
+            (self.co[1] + 1) % 3,
+            (self.co[0] + 2) % 3,
+            (self.co[4] + 1) % 3,
+            (self.co[5] + 2) % 3,
+        )
+
         self.ep[1], self.ep[4], self.ep[9], self.ep[5] = (
             self.ep[5],
             self.ep[1],
@@ -116,6 +137,13 @@ class CubeState():
             self.cp[7],
         )
 
+        self.co[2], self.co[6], self.co[7], self.co[3] = (
+            (self.co[3] + 2) % 3,
+            (self.co[2] + 1) % 3,
+            (self.co[6] + 2) % 3,
+            (self.co[7] + 1) % 3,
+        )
+
         self.ep[3], self.ep[6], self.ep[11], self.ep[7] = (
             self.ep[7],
             self.ep[3],
@@ -127,9 +155,11 @@ cube = CubeState()
 print('start:', cube.is_solved())
 
 cube.move_b()
-print('1x b later:', cube.is_solved())
+print('1x move later:', cube.is_solved())
+
+cube.move_b()
+print('2x move later:', cube.is_solved())
 
 cube.move_b()
 cube.move_b()
-cube.move_b()
-print('4x b later:', cube.is_solved())
+print('4x move later:', cube.is_solved())
