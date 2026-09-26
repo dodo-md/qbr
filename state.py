@@ -4,6 +4,26 @@ class CubeState():
         self.co = [0] * 8
         self.ep = list(range(12))
         self.eo = [0] * 12
+        
+        '''
+        cp:
+        u = 0,1,2,3
+        d = 4,5,6,7
+
+        ep:
+        up floor = 0,1,2,3
+        mid floor = 4,5,6,7
+        bottom floor = 8,9,10,11
+
+        co (corner orientation):
+        0 = oriented (correct angle)
+        1 = twisted clockwise
+        2 = twisted counter-clockwise
+
+        eo (edge orientation):
+        0: oriented (correct direction)
+        1: flipped
+        '''
 
     def is_solved(self) -> bool:
         return (
@@ -28,13 +48,28 @@ class CubeState():
             self.ep[2],
         )
 
+    def move_d(self) -> None:
+        self.cp[4], self.cp[5], self.cp[6], self.cp[7] = (
+            self.cp[5],
+            self.cp[6],
+            self.cp[7],
+            self.cp[4],
+        )
+
+        self.ep[8], self.ep[9], self.ep[10], self.ep[11] = (
+            self.ep[9],
+            self.ep[10],
+            self.ep[11],
+            self.ep[8],
+        )
+
 cube = CubeState()
 print('start:', cube.is_solved())
 
-cube.move_u()
-print('1x u later:', cube.is_solved())
+cube.move_d()
+print('1x d later:', cube.is_solved())
 
-cube.move_u()
-cube.move_u()
-cube.move_u()
-print('4x u later:', cube.is_solved())
+cube.move_d()
+cube.move_d()
+cube.move_d()
+print('4x d later:', cube.is_solved())
