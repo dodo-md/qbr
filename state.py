@@ -149,6 +149,21 @@ class CubeState():
             self.eo[10],
         )
 
+    def move_m(self) -> None:
+        self.ep[1], self.ep[9], self.ep[11], self.ep[3] = (
+            self.ep[3],
+            self.ep[1],
+            self.ep[9],
+            self.ep[11],
+        )
+
+        self.eo[1], self.eo[9], self.eo[11], self.eo[3] = (
+            (self.eo[3] + 1) % 2,
+            (self.eo[1] + 1) % 2,
+            (self.eo[9] + 1) % 2,
+            (self.eo[11] + 1) % 2,
+        )
+
     def move_f(self) -> None:
         self.cp[0], self.cp[4], self.cp[5], self.cp[1] = (
             self.cp[1],
@@ -214,6 +229,7 @@ class CubeState():
                     'D': self.move_d,
                     'R': self.move_r,
                     'L': self.move_l,
+                    'M': self.move_m,
                     'F': self.move_f,
                     'B': self.move_b,
                 }
@@ -231,3 +247,12 @@ class CubeState():
     def apply_algorithm(self, alg: str) -> None:
         for move in alg.split():
             self.apply_move(move)
+
+    # copying the cube
+    def copy(self):
+        new_cube = self.__class__()
+        new_cube.cp = self.cp.copy()
+        new_cube.co = self.co.copy()
+        new_cube.eo = self.eo.copy()
+        new_cube.ep = self.ep.copy()
+        return new_cube

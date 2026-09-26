@@ -5,7 +5,7 @@ def test_initial_state_is_solved():
     assert cube.is_solved()
 
 def test_all_moves_4x():
-    for move in ["U", "D", "F", "B", "R", "L"]:
+    for move in ["U", "D", "F", "B", "R", "L" "M"]:
         cube = CubeState()
         cube.apply_move(move)
         assert not cube.is_solved()
@@ -31,4 +31,11 @@ def test_jb_perm_2x():
     jb_perm = "R U R' F' R U R' U' R' F R2 U' R' U'" 
     for _ in range(2):
         cube.apply_algorithm(jb_perm)
+    assert cube.is_solved()
+
+def test_h_perm_2x():
+    cube = CubeState()
+    h_perm = "M2 U M2 U2 M2 U M2"
+    for _ in range(2):
+        cube.apply_algorithm(h_perm)
     assert cube.is_solved()
