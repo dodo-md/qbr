@@ -6,14 +6,14 @@ class CubeState():
         self.eo = [0] * 12
         
         '''
-        cp:
+        cp (corner permutation):
         u = 0,1,2,3
         d = 4,5,6,7
 
-        ep:
-        up floor = 0,1,2,3
-        mid floor = 4,5,6,7
-        bottom floor = 8,9,10,11
+        ep (edge permutation):
+        up floor = 0(ur: white-red), 1(uf: white-green), 2(ul: white-orange), 3(ub: white-blue)
+        mid floor = 4(fr: green-red), 5(fl: green-orange), 6(bl: blue-orange), 7(br: blue-red)
+        bottom floor = 8(dr: yellow-red), 9(df: yellow-green), 10(dl: yellow-orange), 11(db: yellow-blue)
 
         co (corner orientation):
         0 = oriented (correct angle)
@@ -78,13 +78,58 @@ class CubeState():
             self.ep[8],
         )
 
+    def move_l(self) -> None:
+        self.cp[1], self.cp[5], self.cp[6], self.cp[2] = (
+            self.cp[2],
+            self.cp[1],
+            self.cp[5],
+            self.cp[6],
+        )
+
+        self.ep[2], self.ep[5], self.ep[10], self.ep[6] = (
+            self.ep[6],
+            self.ep[2],
+            self.ep[5],
+            self.ep[10],
+        )
+
+    def move_f(self) -> None:
+        self.cp[0], self.cp[4], self.cp[5], self.cp[1] = (
+            self.cp[1],
+            self.cp[0],
+            self.cp[4],
+            self.cp[5],
+        )
+
+        self.ep[1], self.ep[4], self.ep[9], self.ep[5] = (
+            self.ep[5],
+            self.ep[1],
+            self.ep[4],
+            self.ep[9],
+        )
+
+    def move_b(self) -> None:
+        self.cp[2], self.cp[6], self.cp[7], self.cp[3] = (
+            self.cp[3],
+            self.cp[2],
+            self.cp[6],
+            self.cp[7],
+        )
+
+        self.ep[3], self.ep[6], self.ep[11], self.ep[7] = (
+            self.ep[7],
+            self.ep[3],
+            self.ep[6],
+            self.ep[11],
+        )
+
 cube = CubeState()
 print('start:', cube.is_solved())
 
-cube.move_r()
-print('1x r later:', cube.is_solved())
+cube.move_b()
+print('1x b later:', cube.is_solved())
 
-cube.move_r()
-cube.move_r()
-cube.move_r()
-print('4x r later:', cube.is_solved())
+cube.move_b()
+cube.move_b()
+cube.move_b()
+print('4x b later:', cube.is_solved())
