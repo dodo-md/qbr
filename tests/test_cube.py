@@ -25,3 +25,10 @@ def test_t_perm_2x():
     for _ in range(2):
         cube.apply_algorithm(t_perm)
     assert cube.is_solved()
+
+def test_jb_perm_2x():
+    cube = CubeState()
+    jb_perm = "R U R' F' R U R' U' R' F R2 U' R' U'" 
+    for _ in range(2):
+        cube.apply_algorithm(jb_perm)
+    assert cube.is_solved()
