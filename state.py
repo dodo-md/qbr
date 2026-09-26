@@ -231,10 +231,3 @@ class CubeState():
     def apply_algorithm(self, alg: str) -> None:
         for move in alg.split():
             self.apply_move(move)
-
-cube = CubeState()
-
-for _ in range(2):
-    cube.apply_algorithm("R U R' U' R' F R2 U' R' U' R U R' F'")
-
-print("is it solved after 6x sexy move?:", cube.is_solved())
