@@ -165,15 +165,34 @@ class CubeState():
             (self.eo[11] + 1) % 2,
         )
 
+    # actually moving the cube
+    def apply_move(self, move: str) -> None:
+        base_moves = {
+                    'U': self.move_u,
+                    'D': self.move_d,
+                    'R': self.move_r,
+                    'L': self.move_l,
+                    'F': self.move_f,
+                    'B': self.move_b,
+                }
+        m = move.strip()
+        face = m[0]
+        if m.endswith("'"):
+            count = 3
+        elif m.endswith("2"):
+            count = 2
+        else:
+            count = 1
+        for _ in range(count):
+            base_moves[face]()
+
+    def apply_algorithm(self, alg: str) -> None:
+        for move in alg.split():
+            self.apply_move(move)
+
 cube = CubeState()
-print('start:', cube.is_solved())
 
-cube.move_b()
-print('1x move later:', cube.is_solved())
+for _ in range(6):
+    cube.apply_algorithm("R U R' U'")
 
-cube.move_b()
-print('2x move later:', cube.is_solved())
-
-cube.move_b()
-cube.move_b()
-print('4x move later:', cube.is_solved())
+print("is it solved after 6x sexy move?:", cube.is_solved())
