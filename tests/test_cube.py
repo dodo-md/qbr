@@ -1,0 +1,27 @@
+from state import CubeState
+
+def test_initial_state_is_solved():
+    cube = CubeState()
+    assert cube.is_solved()
+
+def test_all_moves_4x():
+    for move in ["U", "D", "F", "B", "R", "L"]:
+        cube = CubeState()
+        cube.apply_move(move)
+        assert not cube.is_solved()
+        for _ in range(3):
+            cube.apply_move(move)
+        assert cube.is_solved()
+
+def test_sexy_move_6x():
+    cube = CubeState()
+    for _ in range(6):
+        cube.apply_algorithm("R U R' U'")
+    assert cube.is_solved()
+
+def test_t_perm_2x():
+    cube = CubeState()
+    t_perm = "R U R' U' R' F R2 U' R' U' R U R' F'"
+    for _ in range(2):
+        cube.apply_algorithm(t_perm)
+    assert cube.is_solved()
