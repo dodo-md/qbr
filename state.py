@@ -63,13 +63,28 @@ class CubeState():
             self.ep[8],
         )
 
+    def move_r(self) -> None:
+        self.cp[0], self.cp[3], self.cp[7], self.cp[4] = (
+            self.cp[4],
+            self.cp[0],
+            self.cp[3],
+            self.cp[7],
+        )
+
+        self.ep[0], self.ep[7], self.ep[8], self.ep[4] = (
+            self.ep[4],
+            self.ep[0],
+            self.ep[7],
+            self.ep[8],
+        )
+
 cube = CubeState()
 print('start:', cube.is_solved())
 
-cube.move_d()
-print('1x d later:', cube.is_solved())
+cube.move_r()
+print('1x r later:', cube.is_solved())
 
-cube.move_d()
-cube.move_d()
-cube.move_d()
-print('4x d later:', cube.is_solved())
+cube.move_r()
+cube.move_r()
+cube.move_r()
+print('4x r later:', cube.is_solved())
