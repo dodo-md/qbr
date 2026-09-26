@@ -5,7 +5,7 @@ def test_initial_state_is_solved():
     assert cube.is_solved()
 
 def test_all_moves_4x():
-    for move in ["U", "D", "F", "B", "R", "L" "M"]:
+    for move in ["U", "D", "F", "B", "R", "L", "M", "E"]:
         cube = CubeState()
         cube.apply_move(move)
         assert not cube.is_solved()

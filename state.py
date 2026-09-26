@@ -164,6 +164,21 @@ class CubeState():
             (self.eo[11] + 1) % 2,
         )
 
+    def move_e(self) -> None:
+        self.ep[4], self.ep[7], self.ep[6], self.ep[5] = (
+            self.ep[5],
+            self.ep[4],
+            self.ep[7],
+            self.ep[6],
+        )
+
+        self.eo[4], self.eo[7], self.eo[6], self.eo[5] = (
+            (self.eo[5] + 1) % 2,
+            (self.eo[4] + 1) % 2,
+            (self.eo[7] + 1) % 2,
+            (self.eo[6] + 1) % 2,
+        )
+
     def move_f(self) -> None:
         self.cp[0], self.cp[4], self.cp[5], self.cp[1] = (
             self.cp[1],
@@ -230,6 +245,7 @@ class CubeState():
                     'R': self.move_r,
                     'L': self.move_l,
                     'M': self.move_m,
+                    'E': self.move_e,
                     'F': self.move_f,
                     'B': self.move_b,
                 }
