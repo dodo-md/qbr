@@ -38,10 +38,10 @@ if __name__ == "__main__":
     from env import cubeenv
     env = cubeenv()
     agent = qagent()
-    episodes = 3000
+    episodes = 100000
 
     for episode in range(episodes):
-        state = env.reset(scramble_moves=2)
+        state = env.reset(scramble_moves=random.randint(1,3))
         done = False
         total_reward = 0
         while not done:
@@ -51,5 +51,20 @@ if __name__ == "__main__":
             agent.learn(state, action, reward, next_state, done)
             state = next_state
         if agent.epsilon > 0.05:
-            agent.epsilon *= 0.99
-        if episode % 50 == 0: print(f"match: {episode} | points: {total_reward:.1f} | curiosity: {agent.epsilon:.2f} | is it solved: {env.cube.is_solved()}")
+            agent.epsilon *= 0.999
+        if episode % 5000 == 0: print(f"match: {episode} | points: {total_reward:.1f} | curiosity: {agent.epsilon:.2f} | is it solved: {env.cube.is_solved()}")
+
+    # test ride
+    agent.epsilon = 0.0
+    print("/n--- test ride---")
+    for i in range(5):
+        state = env.reset(scramble_moves=3)
+        done = False
+        moves = []
+        while not done:
+            action = agent.choose_action(state)
+            moves.append(env.actions[action])
+            state, reward, done, _ = env.step(action)
+        
+        print(f"test {i+1}: moves={moves} | solved = {env.cube.is_solved()}")
+        print("learned:", len(agent.q_table))
