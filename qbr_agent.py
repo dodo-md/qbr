@@ -35,28 +35,33 @@ class qbragent():
         if cube.is_solved(): return ""
         auf_moves = ["", "U", "U2", "U'"]
 
+        for auf in auf_moves:
+             sim_cube = cube.copy()
+             sim_cube.apply_algorithm(auf)
+             if sim_cube.is_solved():
+                  cube.apply_algorithm(auf)
+                  return auf
+
         for pre in auf_moves:
             for name, alg in pll_algorithms.items():
                 for post in auf_moves:
-                    moves = f"{pre} {alg} {post}".strip()
-                    sim_cube = cube.copy()
-                    sim_cube.apply_algorithm(moves)
-                    if sim_cube.is_solved():
-                        cube.apply_algorithm(moves)
-                        return moves
+                        moves = f"{pre} {alg} {post}".strip()
+                        sim_cube = cube.copy()
+                        sim_cube.apply_algorithm(moves)
+                        if sim_cube.is_solved():
+                            cube.apply_algorithm(moves)
+                            return moves
         return None
 
     def solve(self, cube):
-        if cube.is_solved(): return ""
-        auf_moves = ["", "U", "U2", "U'"]
-
-        for pre in auf_moves:
-            for name, alg in 
+            oll_moves = self.solve_oll(cube) or ""
+            pll_moves = self.solve_pll(cube) or ""
+            return f"{oll_moves} {pll_moves}".strip()
 
 if __name__ == "__main__":
     cube = CubeState()
-    cube.apply_algorithm("R U R' U R U2 R' F R U R' U' F' U2 F U R U' R' F'")
+    cube.apply_algorithm("R U R' U R U2 R' U R U R' U' R' F R2 U' R' U' R U R' F' U'")
     agent = qbragent()
-    solution = agent.solve_oll(cube)
+    solution = agent.solve(cube)
     print("the moves that agent have found:", solution)
-    print("is oll solved?:", cube.is_oll_solved())
+    print("is it solved?:", cube.is_solved())
