@@ -41,11 +41,25 @@ class CubeState():
             self.cp[2],
         )
 
+        self.co[0], self.co[1], self.co[2], self.co[3] = (
+            self.co[3],
+            self.co[0],
+            self.co[1],
+            self.co[2],
+        )
+
         self.ep[0], self.ep[1], self.ep[2], self.ep[3] = (
             self.ep[3],
             self.ep[0],
             self.ep[1],
             self.ep[2],
+        )
+
+        self.eo[0], self.eo[1], self.eo[2], self.eo[3] = (
+            self.eo[3],
+            self.eo[0],
+            self.eo[1],
+            self.eo[2],
         )
 
     def move_d(self) -> None:
@@ -56,11 +70,25 @@ class CubeState():
             self.cp[4],
         )
 
+        self.co[4], self.co[5], self.co[6], self.co[7] = (
+            self.co[5], 
+            self.co[6], 
+            self.co[7], 
+            self.co[4], 
+        )
+
         self.ep[8], self.ep[9], self.ep[10], self.ep[11] = (
             self.ep[9],
             self.ep[10],
             self.ep[11],
             self.ep[8],
+        )
+
+        self.eo[8], self.eo[9], self.eo[10], self.eo[11] = (
+            self.eo[9],
+            self.eo[10],
+            self.eo[11],
+            self.eo[8],
         )
 
     def move_r(self) -> None:
@@ -85,6 +113,13 @@ class CubeState():
             self.ep[8],
         )
 
+        self.eo[0], self.eo[7], self.eo[8], self.eo[4] = (
+            self.eo[4],
+            self.eo[0],
+            self.eo[7],
+            self.eo[8],
+        )
+
     def move_l(self) -> None:
         self.cp[1], self.cp[5], self.cp[6], self.cp[2] = (
             self.cp[2],
@@ -105,6 +140,13 @@ class CubeState():
             self.ep[2],
             self.ep[5],
             self.ep[10],
+        )
+
+        self.eo[2], self.eo[5], self.eo[10], self.eo[6] = (
+            self.eo[6],
+            self.eo[2],
+            self.eo[5],
+            self.eo[10],
         )
 
     def move_f(self) -> None:
@@ -192,7 +234,7 @@ class CubeState():
 
 cube = CubeState()
 
-for _ in range(6):
-    cube.apply_algorithm("R U R' U'")
+for _ in range(2):
+    cube.apply_algorithm("R U R' U' R' F R2 U' R' U' R U R' F'")
 
 print("is it solved after 6x sexy move?:", cube.is_solved())
