@@ -1,6 +1,6 @@
 pll_algorithms = {
-    "Aa": "R' F R' B2 R F' R' B2 R2",
-    "Ab": "R' B' R U' R D R' U R D' R2 B R",
+    "Aa": "R' D R U2 R' D' R U' R' D R U' R' D' R",
+    "Ab": "R2 B2 R F R' B2 R F' R",
     "F": "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
     "Ga": "R2 U R' U R' U' R U' R2 U' D R' U R D'",
     "Gb": "R' U' R U D' R2 U R' U R U' R U' R2 D",
