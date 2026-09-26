@@ -1,6 +1,6 @@
 pll_algorithms = {
-    "Aa": "L2 D2 L' U' L D2 L' U L'",
-    "Ab": "L2 D2 L U L' D2 L U' L",
+    "Aa": "R' F R' B2 R F' R' B2 R2",
+    "Ab": "R' B' R U' R D R' U R D' R2 B R",
     "F": "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
     "Ga": "R2 U R' U R' U' R U' R2 U' D R' U R D'",
     "Gb": "R' U' R U D' R2 U R' U R U' R U' R2 D",
@@ -11,7 +11,7 @@ pll_algorithms = {
     "Ra": "R U' R' U' R U R D R' U' R D' R' U2 R'",
     "Rb": "R2 F R U R U' R' F' R U2 R' U2 R",
     "T": "R U R' U' R' F R2 U' R' U' R U R' F'",
-    "E": "L' U L D' L' U' L D L' U' L D' L' U L D",
+    "E": "R2 U F' R' U R U' R' U R U' R' U R U' F U' R2",
     "Na": "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'",
     "Nb": "R' U R U' R' F' U' F R U R' F R' F' R U' R",
     "V": " R' U R' U' R D' R' D R' U D' R2 U' R2 D R2",
