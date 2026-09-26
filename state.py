@@ -256,3 +256,12 @@ class CubeState():
         new_cube.eo = self.eo.copy()
         new_cube.ep = self.ep.copy()
         return new_cube
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__): return False
+        return (
+            self.cp == other.cp
+            and self.co == other.co
+            and self.ep == other.ep
+            and self.eo == other.eo
+        )
