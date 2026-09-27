@@ -2,12 +2,12 @@ from state import CubeState
 import random
 
 class cubeenv():
-    def __init__(self):
+    def __init__(self, goal="full"):
         self.cube = CubeState()
         self.actions = ["U", "U'", "D", "D'", "R", "R'", "L", "L'", "F", "F'", "B", "B'"]
         self.max_steps = 20
         self.current_step = 0
-        pass
+        self.goal = goal
 
     def get_observation(self):
         return self.cube.cp + self.cube.co + self.cube.ep + self.cube.eo
@@ -25,7 +25,11 @@ class cubeenv():
         self.cube.apply_move(move)
         self.current_step += 1
 
-        if self.cube.is_solved():
+        if self.goal == "cross":
+            is_success = self.cube.is_cross_solved()
+        else:
+            is_success = self.cube.is_solved()
+        if is_success:
             reward = 10.0
             done = True
         else:

@@ -3,7 +3,7 @@ from dqn_agent import dqnagent
 import random
 import torch
 
-env = cubeenv()
+env = cubeenv(goal="cross")
 agent = dqnagent(lr=0.001)
 episodes = 2000
 
@@ -25,7 +25,7 @@ for episode in range(episodes):
     if episode % 10 == 0: agent.update_target_network()
 
     if episode % 50 == 0:
-        print(f"match: {episode} | points: {total_reward:.1f} | curiosity: {agent.epsilon:.2f} | is it solved: {env.cube.is_solved()}")
+        print(f"match: {episode} | points: {total_reward:.1f} | curiosity: {agent.epsilon:.2f} | is cross solved: {env.cube.is_cross_solved()}")
 
 # test ride
 agent.epsilon = 0.0
@@ -40,7 +40,7 @@ for i in range(5):
         moves.append(env.actions[action])
         state, reward, done, _ = env.step(action)
         last_action = action
-    print(f"test {i+1}: moves={moves} | solved={env.cube.is_solved()}")
+    print(f"test {i+1}: moves={moves} | solved={env.cube.is_cross_solved()}")
 
 torch.save(agent.policy_net.state_dict(), "qbr_dqn.pth")
 print("successfully saved")
