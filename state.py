@@ -43,6 +43,12 @@ class CubeState():
             self.eo[:4] == [0, 0, 0, 0]
         )
 
+    def is_cross_solved(self) -> bool:
+        return (
+            self.ep[8:12] == [8, 9, 10, 11]
+            and self.eo[8:12] == [0, 0, 0, 0]
+        )
+
     def move_u(self) -> None:
         self.cp[0], self.cp[1], self.cp[2], self.cp[3] = (
             self.cp[3],
