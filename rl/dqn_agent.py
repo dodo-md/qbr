@@ -1,5 +1,5 @@
-from model import qnetwork
-from replay_buffer import replaybuffer
+from rl.model import qnetwork
+from rl.replay_buffer import replaybuffer
 import torch
 import torch.nn as nn
 import torch.optim as optim

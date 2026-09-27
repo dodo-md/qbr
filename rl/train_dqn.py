@@ -1,5 +1,5 @@
-from env import cubeenv
-from dqn_agent import dqnagent
+from rl.env import cubeenv
+from rl.dqn_agent import dqnagent
 import random
 import torch
 

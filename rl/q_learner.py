@@ -35,7 +35,7 @@ class qagent():
         self.q_table[tuple(state)][action] = new_q
 
 if __name__ == "__main__":
-    from env import cubeenv
+    from rl.env import cubeenv
     env = cubeenv()
     agent = qagent()
     episodes = 100000

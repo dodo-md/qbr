@@ -1,4 +1,4 @@
-from state import CubeState
+from core.state import CubeState
 import random
 
 class cubeenv():

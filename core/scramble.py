@@ -1,4 +1,4 @@
-from state import CubeState
+from core.state import CubeState
 import random
 
 def generate_scramble(length: int = 20) -> str:
