@@ -5,10 +5,10 @@ import torch
 
 env = cubeenv(goal="cross")
 agent = dqnagent(lr=0.001)
-episodes = 2000
+episodes = 6000
 
 for episode in range(episodes):
-    state = env.reset(scramble_moves=random.randint(1, 2))
+    state = env.reset(scramble_moves=random.randint(1, 5))
     done = False
     total_reward = 0
     last_action = None
@@ -21,7 +21,7 @@ for episode in range(episodes):
         total_reward += reward
         last_action = action
 
-    if agent.epsilon > 0.05: agent.epsilon *= 0.995
+    if agent.epsilon > 0.05: agent.epsilon *= 0.999
     if episode % 10 == 0: agent.update_target_network()
 
     if episode % 50 == 0:
@@ -31,7 +31,7 @@ for episode in range(episodes):
 agent.epsilon = 0.0
 print("\n--- test ride ---")
 for i in range(5):
-    state = env.reset(scramble_moves=2)
+    state = env.reset(scramble_moves=4)
     done = False
     moves = []
     last_action = None

@@ -49,6 +49,13 @@ class CubeState():
             and self.eo[8:12] == [0, 0, 0, 0]
         )
 
+    def count_cross_edges(self) -> int:
+        count = 0
+        for i in range(8,12):
+            if self.ep[i] == i and self.eo[i] == 0:
+                count += 1
+        return count
+    
     def move_u(self) -> None:
         self.cp[0], self.cp[1], self.cp[2], self.cp[3] = (
             self.cp[3],

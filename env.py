@@ -5,7 +5,7 @@ class cubeenv():
     def __init__(self, goal="full"):
         self.cube = CubeState()
         self.actions = ["U", "U'", "D", "D'", "R", "R'", "L", "L'", "F", "F'", "B", "B'"]
-        self.max_steps = 20
+        self.max_steps = 30
         self.current_step = 0
         self.goal = goal
 
@@ -22,19 +22,31 @@ class cubeenv():
 
     def step(self, action):
         move = self.actions[action]
+        old_cross = self.cube.count_cross_edges()
         self.cube.apply_move(move)
+        new_cross = self.cube.count_cross_edges()
         self.current_step += 1
 
         if self.goal == "cross":
-            is_success = self.cube.is_cross_solved()
+            if self.cube.is_cross_solved():
+                reward = 10.0
+                done = True
+            elif new_cross > old_cross:
+                reward = 2.0
+                done = False
+            elif new_cross < old_cross:
+                reward = -2.0
+                done = False
+            else:
+                reward = -0.1
+                done = self.current_step >= self.max_steps
         else:
-            is_success = self.cube.is_solved()
-        if is_success:
-            reward = 10.0
-            done = True
-        else:
-            reward = -0.1
-            done = self.current_step >= self.max_steps
+            if self.cube.is_solved():
+                reward = 10.0
+                done = True
+            else:
+                reward = -0.1
+                done = self.current_step >= self.max_steps
 
         obs = self.get_observation()
         return obs, reward, done, {}
