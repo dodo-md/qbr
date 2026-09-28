@@ -49,6 +49,26 @@ class CubeState():
             and self.eo[8:12] == [0, 0, 0, 0]
         )
 
+    def is_f2l_solved(self) -> bool:
+        return (
+            self.is_cross_solved()
+            and self.ep[4:8] == [4, 5, 6, 7]
+            and self.eo[4:8] == [0, 0, 0, 0]
+            and self.cp[4:8] == [4, 5, 6, 7]
+            and self.co[4:8] == [0, 0, 0, 0]
+        )
+
+    def get_f2l_slots(self, slot_idx: int) -> bool:
+        return [
+            (self.cp[i] == i and self.co[i] == 0
+            and self.ep[i] == i and self.eo[i] == 0)
+            
+            for i in range(4,8)
+        ]
+
+    def count_f2l_pairs(self) -> int:
+        return sum(self.get_f2l_slots())
+
     def count_cross_edges(self) -> int:
         count = 0
         for i in range(8,12):

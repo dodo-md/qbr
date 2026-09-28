@@ -39,3 +39,9 @@ def test_h_perm_2x():
     for _ in range(2):
         cube.apply_algorithm(h_perm)
     assert cube.is_solved()
+
+def test_f2l():
+    cube = CubeState()
+    scramble = "F2 L B D' L D B' L' F2 D2 L U2 L' U2 L U2 L' D2"
+    cube.apply_algorithm(scramble)
+    assert cube.is_f2l_solved()
