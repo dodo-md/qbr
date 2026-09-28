@@ -27,7 +27,7 @@
 ## 3. project context (qbr)
 - **name:** qbr
 - **slogan:** `solve at the speed of thought.`
-- **description:** `a python cube engine and reinforcement learning solver built from scratch.`
+- **description:** `a python cube engine and cfop solver built from scratch.`
 - **license:** agpl-v3
-- **stack:** python (`uv`), future rl models (cfop master & method master), future kotlin/jetpack compose android app, macos app, ble smart cube (gan 356 i carry), mcp + llm coach layer.
+- **stack:** python (`uv`), cfop engine / heuristic solvers, future kotlin/jetpack compose android app, macos app, ble smart cube (gan 356 i carry), mcp + llm coach layer.
 - **current milestone:** python cubie-level `cubestate` engine (`cp`, `co`, `ep`, `eo`), move implementations, cycle swaps.
