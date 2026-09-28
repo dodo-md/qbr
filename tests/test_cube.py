@@ -1,4 +1,4 @@
-from state import CubeState
+from core.state import CubeState
 
 def test_initial_state_is_solved():
     cube = CubeState()

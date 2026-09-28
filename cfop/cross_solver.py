@@ -1,5 +1,13 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from core.state import CubeState
 from collections import deque
+import os
+import pickle
+
+cache_path = os.path.join(os.path.dirname(__file__), "..", "weights", "cross_table.pkl")
 
 inverse_map = {
     "U": "U'", "U'": "U",
@@ -37,6 +45,20 @@ def build_cross_table():
 
     return table
 
+def get_cross_table(path=cache_path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.exists(path):
+        print("getting cross map..")
+        with open(path, "rb") as f:
+            return pickle.load(f)
+
+    print("mapping 190.080 possible cases..")
+    table = build_cross_table()
+    with open(path, "wb") as f:
+        pickle.dump(table, f)
+    print("the map has saved to weights/cross_table.pkl")
+    return table
+
 def solve_cross(cube, table):
     moves = []
     while not cube.is_cross_solved():
@@ -47,13 +69,12 @@ def solve_cross(cube, table):
     return " ".join(moves)
 
 if __name__ == "__main__":
-    print("mapping 190.080 cases..")
-    table = build_cross_table()
+    table = get_cross_table()
     print("map is ready! found:", len(table))
 
     cube = CubeState()
     # wca scramble
-    cube.apply_algorithm("D' L2 R2 B2 L2 R2 U B2 U2 F2 L2 D2 L D2 B R2 F U B2 R2 U'")
+    cube.apply_algorithm("F2 D' F2 U' F2 U2 R2 D B2 U' L2 F2 L F D2 L R' F' D F2 L2")
     print("is cross solved after scramble?:", cube.is_cross_solved())
 
     solution = solve_cross(cube, table)

@@ -240,10 +240,10 @@ class CubeState():
         )
 
         self.co[2], self.co[6], self.co[7], self.co[3] = (
-            (self.co[3] + 2) % 3,
-            (self.co[2] + 1) % 3,
-            (self.co[6] + 2) % 3,
-            (self.co[7] + 1) % 3,
+            (self.co[3] + 1) % 3,
+            (self.co[2] + 2) % 3,
+            (self.co[6] + 1) % 3,
+            (self.co[7] + 2) % 3,
         )
 
         self.ep[3], self.ep[6], self.ep[11], self.ep[7] = (
