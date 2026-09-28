@@ -1,3 +1,5 @@
+from cfop.f2l_solver import get_f2l_table, solve_f2l
+from cfop.cross_solver import get_cross_table, solve_cross
 from cfop.pll import pll_algorithms
 from cfop.oll import oll_algorithms
 from cfop.oll import twolook_oll_algorithms
@@ -83,6 +85,18 @@ class qbragent():
             oll_moves = self.solve_oll(cube) or ""
             pll_moves = self.solve_pll(cube) or ""
             return f"{oll_moves} {pll_moves}".strip()
+
+    def __init__(self):
+        self.cross_table = get_cross_table()
+        self.f2l_table = get_f2l_table()
+
+    def solve(self, cube):
+         c_moves = solve_cross(cube, self.cross_table)
+         f_moves = solve_f2l(cube, self.f2l_table)
+         o_moves = self.solve_oll(cube)
+         p_moves = self.solve_pll(cube)
+         steps = [c_moves, f_moves, o_moves, p_moves]
+         return " ".join(m for m in steps if m)
 
 if __name__ == "__main__":
     cube = CubeState()
