@@ -96,8 +96,7 @@ class qbragent():
          o_moves = self.solve_oll(cube)
          p_moves = self.solve_pll(cube)
          steps = [c_moves, f_moves, o_moves, p_moves]
-         return " ".join(m for m in steps if m)
-
+         return f"{c_moves} // cross\n{f_moves} // f2l\n{o_moves} // oll\n{p_moves} // pll"
 if __name__ == "__main__":
     cube = CubeState()
     cube.apply_algorithm("B' U2 R L2 D L2 U' L2 F2 L2 R2 U B2 L2 B' L U B R' D' R")
