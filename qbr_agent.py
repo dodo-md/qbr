@@ -100,9 +100,8 @@ class qbragent():
 
 if __name__ == "__main__":
     cube = CubeState()
-    cube.apply_algorithm("R D B2 R2 U' R2 D B2 D2 B2 L' B R' B2 L B' U2")
+    cube.apply_algorithm("B' U2 R L2 D L2 U' L2 F2 L2 R2 U B2 L2 B' L U B R' D' R")
     agent = qbragent()
-    solution = agent.solve_oll(cube)
+    solution = agent.solve(cube)
     print("the moves that agent have found:", solution)
-    print("is oll solved?:", cube.is_oll_solved())
-    print("is oll cross solved?:", cube.is_oll_cross_solved())
+    print("is the cube solved:", cube.is_solved())

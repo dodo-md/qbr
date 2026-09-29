@@ -9,7 +9,7 @@ import pickle
 
 cache_path = os.path.join(os.path.dirname(__file__), "..", "weights", "f2l_table.pkl")
 
-slot_triggers = {4: ["R U R'", "R U' R'", "R U' R'", "F' U' F", "R U R' U'", "R' F R F'", "U", "U'", "U2"], 5: ["L' U' L", "L' U2 L", "L U2 L", "F U F'", "L' U' L U", "L F' L' F", "U", "U'", "U2"], 6: ["L U L'", "L U' L'", "L U' L'", "B' U' B", "L U L' U'", "U", "U'", "U2"], 7: ["R' U' R", "R' U R", "R' U2 R", "B U B'", "R' U' R U", "U", "U'", "U2"]}
+slot_triggers = {4: ["R U R'", "R U' R'", "R U' R'", "F' U' F", "R U R' U'", "R' F R F'", "U", "U'", "U2"], 5: ["L' U' L", "L' U2 L", "L' U2 L", "F U F'", "L' U' L U", "L F' L' F", "U", "U'", "U2"], 6: ["L U L'", "L U' L'", "L U' L'", "B' U' B", "L U L' U'", "U", "U'", "U2"], 7: ["R' U' R", "R' U R", "R' U2 R", "B U B'", "R' U' R U", "U", "U'", "U2"]}
 
 def get_slot_state(cube, slot_idx):
     c_pos = cube.cp.index(slot_idx); c_ori = cube.co[c_pos]
@@ -70,19 +70,40 @@ def solve_slot(cube, slot_idx, table):
     while get_slot_state(cube, slot_idx) != (slot_idx, 0, slot_idx, 0):
         st = get_slot_state(cube, slot_idx)
         c_pos, c_ori, e_pos, e_ori = st
-        if c_pos >= 4 and c_pos != slot_idx: alg = slot_triggers[c_pos][0]
-        elif e_pos >= 4 and e_pos != slot_idx: alg = slot_triggers[e_pos][0]
+        if c_pos in [4, 5, 6 ,7] and c_pos != slot_idx: alg = slot_triggers[c_pos][0]
+        elif e_pos in [4, 5, 6, 7] and e_pos != slot_idx: alg = slot_triggers[e_pos][0]
         else: alg = table[st]
         cube.apply_algorithm(alg)
         moves.append(alg)
     return " ".join(moves)
+
+turn_map = {"": 1, "2": 2, "'": 3}
+inv_turn_map = {1: "", 2: "2", 3: "'"}
+
+def simplify_moves(moves_str):
+    if not moves_str: return ""
+    stack = []
+
+    for m in moves_str.split():
+        face = m[0]
+        amount = turn_map[m[1::]]
+
+        if stack and stack[-1][0] == face:
+            prev_face, prev_amount = stack.pop()
+            new_amount = (prev_amount + amount) % 4
+            if new_amount != 0:
+                stack.append((face, new_amount))
+        else:
+            stack.append((face, amount))
+
+    return " ".join(f"{face}{inv_turn_map[amt]}" for face, amt in stack)
 
 def solve_f2l(cube, tables):
     all_moves = []
     for slot_idx in [4, 5, 6,7]:
         moves = solve_slot(cube, slot_idx, tables[slot_idx])
         if moves: all_moves.append(moves)
-    return " ".join(all_moves)
+    return simplify_moves(" ".join(all_moves))
         
 if __name__ == "__main__":
     table = get_f2l_table()
